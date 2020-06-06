@@ -24,7 +24,6 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-import /init.blu_spark.rc
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -95,7 +94,14 @@ service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service-qti
     group root
     disabled
     seclabel u:r:recovery:s0
-	
+
+service patchfakepartitions-service /sbin/patchfakepartitions-service.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
 # This helps fix ld.config.txt errors from the linker on Android 8.1+
 service ldconfigtxt /sbin/touch /sbin/ld.config.txt
     oneshot
@@ -106,6 +112,8 @@ on boot
     setprop sys.usb.config adb
     write /proc/touchpanel/gesture_enable 1
     write /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/usb/otg_switch 1
+    chmod 0777 /sbin/patchfakepartitions-service.sh
+    start patchfakepartitions-service
 
 on init
     start hwservicemanager

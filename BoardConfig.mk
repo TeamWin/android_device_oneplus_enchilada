@@ -80,11 +80,9 @@ BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/pane10-backlight/brightness"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_MAX_BRIGHTNESS := 1023
 TW_DEFAULT_BRIGHTNESS := 420
-TW_Y_OFFSET := 80
-TW_H_OFFSET := -80
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXCLUDE_SUPERSU := true
 TW_EXTRA_LANGUAGES := true
@@ -97,8 +95,7 @@ TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
 TW_RECOVERY_ADDITIONAL_RELINK_FILES := ${OUT}/system/lib64/android.hardware.boot@1.0.so
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TW_NO_SCREEN_BLANK := true
-TW_INCLUDE_REPACKTOOLS := true
-TW_HAS_EDL_MODE := true
+TW_EXCLUDE_TWRPAPP := true
 
 # Encryption
 PLATFORM_SECURITY_PATCH := 2025-12-31
@@ -106,4 +103,8 @@ TW_INCLUDE_CRYPTO := true
 
 # Extras
 BOARD_SUPPRESS_SECURE_ERASE := true
-TW_USE_LEDS_HAPTICS := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
+TW_HAS_EDL_MODE := true
+PLATFORM_VERSION := 16.1.0
